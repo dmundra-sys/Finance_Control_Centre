@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-slate-50 text-slate-800 antialiased font-sans; font-feature-settings: 'cv02','cv03','cv04','cv11'; }
+  h1,h2,h3 { @apply text-navy-900; }
+  input, select, textarea { @apply text-sm; }
+  ::selection { background: #c3d3e8; }
+}
+@layer components {
+  .card { @apply bg-white rounded-xl border border-slate-200 shadow-card; }
+  .card-h { @apply flex items-center justify-between gap-3 px-4 py-3 border-b border-slate-100; }
+  .card-t { @apply text-sm font-semibold text-navy-900; }
+  .btn { @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-navy-400 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap; }
+  .btn-primary { @apply btn bg-navy-900 text-white hover:bg-navy-700; }
+  .btn-green { @apply btn bg-emerald-600 text-white hover:bg-emerald-700; }
+  .btn-red { @apply btn bg-red-600 text-white hover:bg-red-700; }
+  .btn-amber { @apply btn bg-amber-500 text-white hover:bg-amber-600; }
+  .btn-outline { @apply btn bg-white text-slate-700 border border-slate-300 hover:bg-slate-50; }
+  .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100; }
+  .btn-sm { @apply px-2.5 py-1.5 text-xs; }
+  .input { @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-navy-400 focus:outline-none focus:ring-2 focus:ring-navy-100 disabled:bg-slate-100 disabled:text-slate-500; }
+  .label { @apply mb-1 block text-xs font-medium text-slate-600; }
+  .th { @apply px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-500 bg-slate-50 whitespace-nowrap; }
+  .td { @apply px-3 py-2.5 text-sm text-slate-700 align-top; }
+  .badge { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold whitespace-nowrap; }
+  .link { @apply text-navy-600 hover:text-navy-800 hover:underline font-medium; }
+}
+.num { font-variant-numeric: tabular-nums; }
+@media print { .no-print { display: none !important; } }
