@@ -1,0 +1,7 @@
+**/node_modules
+**/dist
+server/storage
+server/backups
+.env
+.git
+docs
