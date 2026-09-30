@@ -224,6 +224,18 @@ docker compose up -d --build
 docker compose logs -f app
 ```
 
+### Render (GitHub → live URL, one click)
+
+The repo contains a `render.yaml` blueprint that creates the web service (Docker), a PostgreSQL 16 database and a 5 GB persistent disk for encrypted documents.
+
+1. Open `https://dashboard.render.com/blueprint/new?repo=<your GitHub repo URL>` (sign in with GitHub, allow access to the repo).
+2. When asked for **DEMO_PASSWORD**, choose a password (it is used by every demo user, including `admin`). Click **Deploy Blueprint**.
+3. First start takes a few minutes. The address shown on the service (`https://payment-approval-workflow-xxxx.onrender.com`) is your app. Sign in as `admin` with your DEMO_PASSWORD.
+4. `DATA_ENCRYPTION_KEY` is generated for you: open the service → Environment and copy it somewhere safe.
+5. `SEED_DEMO_DATA=true` loads the sample companies, users and 40 payments **only into a completely empty database**. For real use, delete that variable and DEMO_PASSWORD, redeploy on a fresh database and create your administrator from the service **Shell**: `node dist/scripts/create-admin.js admin "Name" you@company.com 'Password' 9460201308`.
+
+The plans in `render.yaml` are paid ones (a disk and a non-expiring database need them); change them in the file or dashboard if you prefer.
+
 ### Without Docker (systemd example)
 
 ```bash

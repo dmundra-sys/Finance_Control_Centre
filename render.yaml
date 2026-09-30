@@ -1,0 +1,44 @@
+# Render Blueprint – one-click deploy of the app + PostgreSQL + persistent document storage.
+# Paid plans are used on purpose: a persistent disk (uploaded documents) needs a paid web plan and the
+# free Postgres is deleted after 30 days. Change plans in the Render dashboard if you prefer.
+databases:
+  - name: pawf-db
+    plan: 0.1c-256mb
+    databaseName: pawf
+    user: pawf
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: payment-approval-workflow
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: 0.5c-512mb
+    healthCheckPath: /api/health
+    disk:
+      name: pawf-data
+      mountPath: /data
+      sizeGB: 5
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pawf-db
+          property: connectionString
+      - key: DATA_ENCRYPTION_KEY      # generated once by Render; back it up (Render dashboard > Environment)
+        generateValue: true
+      - key: NODE_ENV
+        value: production
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"
+      - key: STORAGE_DIR
+        value: /data/storage
+      - key: BACKUP_DIR
+        value: /data/backups
+      - key: SEED_DEMO_DATA            # loads sample companies, users and 40 payments ON FIRST START ONLY
+        value: "true"
+      - key: DEMO_PASSWORD             # you choose it when you click Deploy; used by every demo user
+        sync: false
+      - key: SHOW_DEMO_LOGINS
+        value: "false"
